@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexFin 2033 — AI-Powered Mathematical Finance</title>
+<meta name="description" content="Futuristic financial intelligence platform powered by mathematical models and AI for Dubai 2033">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- BOOT LOADER -->
+<div id="boot-loader">
+  <div class="loader-content">
+    <div class="loader-logo">Σ</div>
+    <div class="loader-text">NEXFIN_2033 <span class="blink">_</span></div>
+    <div class="progress-bar"><div class="progress-fill"></div></div>
+    <div class="loader-status">INITIALIZING MATHEMATICAL ENGINES...</div>
+  </div>
+</div><!-- PARTICLE CANVAS -->
+<canvas id="particleCanvas"></canvas>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <div class="nav-logo">
+    <span class="logo-symbol">Σ</span>
+    <span class="logo-text">NexFin<span class="logo-year">2033</span></span>
+  </div>
+  <div class="nav-links">
+    <a href="#hero">Home</a>
+    <a href="#math-core">Mathematics</a>
+    <a href="#budget">Budget AI</a>
+    <a href="#savings">Savings</a>
+    <a href="#investment">Invest</a>
+    <a href="#risk">Risk</a>
+    <a href="#stocks">Stocks</a>
+    <a href="#loan">Loans</a>
+  </div>
+  <div class="nav-status"><span class="status-dot"></span> AI Online</div>
+</nav>
+
+<!-- STOCK TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <div class="ticker-item">AAPL: $342.15 <span class="up">▲ 1.2%</span></div>
+    <div class="ticker-item">TSLA: $891.05 <span class="up">▲ 3.4%</span></div>
+    <div class="ticker-item">MSFT: $512.30 <span class="down">▼ 0.5%</span></div>
+    <div class="ticker-item">AMZN: $245.90 <span class="up">▲ 0.8%</span></div>
+    <div class="ticker-item">NVDA: $1120.45 <span class="up">▲ 5.1%</span></div>
+    <div class="ticker-item">META: $610.20 <span class="down">▼ 1.1%</span></div>
+    <div class="ticker-item">GOOGL: $210.75 <span class="up">▲ 0.4%</span></div>
+    <!-- Duplicate for infinite scroll -->
+    <div class="ticker-item">AAPL: $342.15 <span class="up">▲ 1.2%</span></div>
+    <div class="ticker-item">TSLA: $891.05 <span class="up">▲ 3.4%</span></div>
+    <div class="ticker-item">MSFT: $512.30 <span class="down">▼ 0.5%</span></div>
+    <div class="ticker-item">AMZN: $245.90 <span class="up">▲ 0.8%</span></div>
+    <div class="ticker-item">NVDA: $1120.45 <span class="up">▲ 5.1%</span></div>
+    <div class="ticker-item">META: $610.20 <span class="down">▼ 1.1%</span></div>
+    <div class="ticker-item">GOOGL: $210.75 <span class="up">▲ 0.4%</span></div>
+  </div>
+</div>
+
+<!-- HERO SECTION -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-badge">CITY OF MATH 2033 · FINTECH FUTURE</div>
+    <h1 class="hero-title">
+      <span class="title-line">The Future of</span>
+      <span class="title-line gradient-text">Mathematical Finance</span>
+    </h1>
+    <p class="hero-subtitle">AI-powered financial intelligence built on rigorous mathematical models — compound interest, Monte Carlo simulations, linear optimization, statistical risk analysis, and more.</p>
+    <div class="hero-stats">
+      <div class="stat-item"><span class="stat-number" data-target="12">0</span><span class="stat-label">Math Models</span></div>
+      <div class="stat-item"><span class="stat-number" data-target="6">0</span><span class="stat-label">AI Tools</span></div>
+      <div class="stat-item"><span class="stat-number" data-target="99">0</span><span class="stat-label">% Accuracy</span></div>
+    </div>
+    <div class="hero-buttons">
+      <a href="#budget" class="btn-primary">Launch Platform</a>
+      <a href="#math-core" class="btn-secondary">View Mathematics</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="mouse"><div class="wheel"></div></div>
+    <span>Scroll to Explore</span>
+  </div>
+</section>
+
+<!-- MATHEMATICAL FOUNDATIONS -->
+<section id="math-core" class="section">
+  <div class="section-header">
+    <span class="section-tag">MATHEMATICAL DEPTH</span>
+    <h2>Core Mathematical <span class="gradient-text">Foundations</span></h2>
+    <p>Every feature is built on rigorous mathematical models. Here are the key formulas powering NexFin 2033.</p>
+  </div>
+  <div class="math-grid">
+    <div class="math-card interactive-card" data-aos="fade-up">
+      <div class="math-icon">∫</div>
+      <h3>Compound Interest</h3>
+      <div class="math-formula">\[ A = P\left(1 + \frac{r}{n}\right)^{nt} \]</div>
+      <p>Models exponential growth of savings and investments over time with periodic compounding.</p>
+      <span class="math-tag">Savings Calculator</span>
+    </div>
+    <div class="math-card interactive-card" data-aos="fade-up">
+      <div class="math-icon">Σ</div>
+      <h3>Amortization</h3>
+      <div class="math-formula">\[ EMI = P \cdot \frac{r(1+r)^n}{(1+r)^n - 1} \]</div>
+      <p>Calculates equal monthly installments for loan repayment using annuity mathematics.</p>
+      <span class="math-tag">Loan Calculator</span>
+    </div>
+    <div class="math-card interactive-card" data-aos="fade-up">
+      <div class="math-icon">σ</div>
+      <h3>Standard Deviation</h3>
+      <div class="math-formula">\[ \sigma = \sqrt{\frac{1}{N}\sum_{i=1}^{N}(x_i - \mu)^2} \]</div>
+      <p>Measures portfolio volatility and investment risk through statistical dispersion analysis.</p>
+      <span class="math-tag">Risk Analysis</span>
+    </div>
+    <div class="math-card interactive-card" data-aos="fade-up">
+      <div class="math-icon">∇</div>
+      <h3>Monte Carlo Simulation</h3>
+      <div class="math-formula">\[ S_t = S_0 \cdot e^{(\mu - \frac{\sigma^2}{2})t + \sigma W_t} \]</div>
+      <p>Uses geometric Brownian motion to simulate thousands of possible investment outcomes.</p>
+      <span class="math-tag">Investment Simulator</span>
+    </div>
+    <div class="math-card interactive-card" data-aos="fade-up">
+      <div class="math-icon">∂</div>
+      <h3>Linear Regression</h3>
+      <div class="math-formula">\[ \hat{y} = \beta_0 + \beta_1 x, \quad \beta_1 = \frac{\sum(x_i-\bar{x})(y_i-\bar{y})}{\sum(x_i-\bar{x})^2} \]</div>
+      <p>Predicts future spending trends using least-squares regression on historical data.</p>
+      <span class="math-tag">AI Predictor</span>
+    </div>
+    <div class="math-card interactive-card" data-aos="fade-up">
+      <div class="math-icon">∞</div>
+      <h3>Optimization</h3>
+      <div class="math-formula">\[ \max \sum_{i} r_i x_i \quad \text{s.t.} \sum_{i} x_i \leq B,\; x_i \geq 0 \]</div>
+      <p>Allocates budget optimally across categories using constrained optimization techniques.</p>
+      <span class="math-tag">Budget Optimizer</span>
+    </div>
+    <div class="math-card interactive-card" data-aos="fade-up">
+      <div class="math-icon">φ</div>
+      <h3>Expected Value</h3>
+      <div class="math-formula">\[ E[X] = \sum_{i} x_i \cdot P(x_i) \]</div>
+      <p>Calculates weighted average returns across different investment scenarios and probabilities.</p>
+      <span class="math-tag">Portfolio Analysis</span>
+    </div>
+    <div class="math-card interactive-card" data-aos="fade-up">
+      <div class="math-icon">λ</div>
+      <h3>Sharpe Ratio</h3>
+      <div class="math-formula">\[ S = \frac{R_p - R_f}{\sigma_p} \]</div>
+      <p>Evaluates risk-adjusted returns to compare investment performance against a risk-free benchmark.</p>
+      <span class="math-tag">Risk Dashboard</span>
+    </div>
+  </div>
+</section>
+
+<!-- BUDGET OPTIMIZER -->
+<section id="budget" class="section">
+  <div class="section-header">
+    <span class="section-tag">LINEAR OPTIMIZATION</span>
+    <h2>AI Budget <span class="gradient-text">Optimizer</span></h2>
+    <p>Mathematically optimal budget allocation using constrained optimization. Input your income and watch AI distribute it using linear programming.</p>
+  </div>
+  <div class="tool-container">
+    <div class="tool-panel interactive-card">
+      <h3><span class="panel-icon">📊</span> Input Parameters</h3>
+      <div class="input-group">
+        <label>Monthly Income (AED)</label>
+        <input type="number" id="budgetIncome" value="15000" min="1000" step="500">
+      </div>
+      <div class="input-group">
+        <label>Savings Goal (%)</label>
+        <input type="range" id="savingsGoal" min="5" max="50" value="20">
+        <span class="range-value" id="savingsGoalVal">20%</span>
+      </div>
+      <div class="input-group">
+        <label>Risk Tolerance</label>
+        <select id="riskTolerance">
+          <option value="conservative">Conservative</option>
+          <option value="moderate" selected>Moderate</option>
+          <option value="aggressive">Aggressive</option>
+        </select>
+      </div>
+      <button class="btn-primary" id="optimizeBudget">⚡ Optimize Budget</button>
+      <div class="math-proof">
+        <h4>Mathematical Model:</h4>
+        <div class="math-formula-small">\[\text{Maximize: } U = \sum_{i=1}^{n} w_i \cdot \ln(x_i + 1)\]</div>
+        <div class="math-formula-small">\[\text{Subject to: } \sum_{i=1}^{n} x_i \leq I, \quad x_i \geq m_i\]</div>
+        <p class="math-explanation">We use logarithmic utility maximization with minimum allocation constraints to find the optimal distribution.</p>
+      </div>
+    </div>
+    <div class="tool-output interactive-card">
+      <h3><span class="panel-icon">🎯</span> Optimized Allocation</h3>
+      <canvas id="budgetChart"></canvas>
+      <div id="budgetBreakdown" class="breakdown-grid"></div>
+    </div>
+  </div>
+  <div class="ai-advice-panel interactive-card" id="budgetAdvice">
+    <div class="advice-header"><span class="advice-icon">🤖</span><h3>AI Financial Advisor</h3><span class="advice-badge">SMART INSIGHTS</span></div>
+    <div class="advice-body"></div>
+  </div>
+</section>
+
+<!-- SAVINGS CALCULATOR -->
+<section id="savings" class="section">
+  <div class="section-header">
+    <span class="section-tag">COMPOUND INTEREST</span>
+    <h2>Savings Growth <span class="gradient-text">Simulator</span></h2>
+    <p>Visualize the power of compound interest — watch your money grow exponentially over time using the compound interest formula.</p>
+  </div>
+  <div class="tool-container">
+    <div class="tool-panel interactive-card">
+      <h3><span class="panel-icon">💰</span> Savings Parameters</h3>
+      <div class="input-group">
+        <label>Initial Deposit (AED)</label>
+        <input type="number" id="savingsInitial" value="10000" min="100">
+      </div>
+      <div class="input-group">
+        <label>Monthly Contribution (AED)</label>
+        <input type="number" id="savingsMonthly" value="2000" min="0">
+      </div>
+      <div class="input-group">
+        <label>Annual Interest Rate (%)</label>
+        <input type="range" id="savingsRate" min="1" max="15" value="7" step="0.5">
+        <span class="range-value" id="savingsRateVal">7%</span>
+      </div>
+      <div class="input-group">
+        <label>Time Period (Years)</label>
+        <input type="range" id="savingsYears" min="1" max="30" value="10">
+        <span class="range-value" id="savingsYearsVal">10 yrs</span>
+      </div>
+      <div class="input-group">
+        <label>Compounding Frequency</label>
+        <select id="compoundFreq">
+          <option value="1">Annually</option>
+          <option value="4">Quarterly</option>
+          <option value="12" selected>Monthly</option>
+          <option value="365">Daily</option>
+        </select>
+      </div>
+      <button class="btn-primary" id="calcSavings">📈 Calculate Growth</button>
+      <div class="math-proof">
+        <h4>Formula Applied:</h4>
+        <div class="math-formula-small">\[A = P\left(1+\frac{r}{n}\right)^{nt} + PMT \cdot \frac{\left(1+\frac{r}{n}\right)^{nt}-1}{\frac{r}{n}}\]</div>
+        <p class="math-explanation">Combines lump-sum compound interest with future value of annuity for recurring deposits.</p>
+      </div>
+    </div>
+    <div class="tool-output interactive-card">
+      <h3><span class="panel-icon">📊</span> Growth Projection</h3>
+      <div class="result-cards">
+        <div class="result-card"><span class="result-label">Final Value</span><span class="result-value" id="savFinal">—</span></div>
+        <div class="result-card accent"><span class="result-label">Interest Earned</span><span class="result-value" id="savInterest">—</span></div>
+        <div class="result-card"><span class="result-label">Total Deposited</span><span class="result-value" id="savDeposited">—</span></div>
+        <div class="result-card"><span class="result-label">Growth Multiple</span><span class="result-value" id="savMultiple">—</span></div>
+      </div>
+      <canvas id="savingsChart"></canvas>
+    </div>
+  </div>
+  <div class="ai-advice-panel interactive-card" id="savingsAdvice">
+    <div class="advice-header"><span class="advice-icon">🤖</span><h3>AI Savings Advisor</h3><span class="advice-badge">SMART INSIGHTS</span></div>
+    <div class="advice-body"></div>
+  </div>
+</section>
+
+<!-- INVESTMENT SIMULATOR -->
+<section id="investment" class="section">
+  <div class="section-header">
+    <span class="section-tag">MONTE CARLO SIMULATION</span>
+    <h2>Investment <span class="gradient-text">Simulator</span></h2>
+    <p>Run thousands of probabilistic simulations using geometric Brownian motion to model possible investment outcomes and quantify uncertainty.</p>
+  </div>
+  <div class="tool-container">
+    <div class="tool-panel interactive-card">
+      <h3><span class="panel-icon">🎲</span> Simulation Parameters</h3>
+      <div class="input-group">
+        <label>Initial Investment (AED)</label>
+        <input type="number" id="mcInitial" value="50000" min="1000">
+      </div>
+      <div class="input-group">
+        <label>Expected Annual Return (%)</label>
+        <input type="range" id="mcReturn" min="1" max="20" value="8">
+        <span class="range-value" id="mcReturnVal">8%</span>
+      </div>
+      <div class="input-group">
+        <label>Annual Volatility (%)</label>
+        <input type="range" id="mcVolatility" min="5" max="40" value="15">
+        <span class="range-value" id="mcVolatilityVal">15%</span>
+      </div>
+      <div class="input-group">
+        <label>Time Horizon (Years)</label>
+        <input type="range" id="mcYears" min="1" max="20" value="5">
+        <span class="range-value" id="mcYearsVal">5 yrs</span>
+      </div>
+      <div class="input-group">
+        <label>Simulations</label>
+        <input type="range" id="mcSims" min="100" max="1000" value="500" step="100">
+        <span class="range-value" id="mcSimsVal">500</span>
+      </div>
+      <button class="btn-primary" id="runMonteCarlo">🚀 Run Simulation</button>
+      <div class="math-proof">
+        <h4>Geometric Brownian Motion:</h4>
+        <div class="math-formula-small">\[S_{t+\Delta t} = S_t \cdot \exp\left[\left(\mu - \frac{\sigma^2}{2}\right)\Delta t + \sigma\sqrt{\Delta t}\cdot Z\right]\]</div>
+        <p class="math-explanation">Where Z ~ N(0,1). Each simulation generates a random path using normally distributed returns.</p>
+      </div>
+    </div>
+    <div class="tool-output interactive-card">
+      <h3><span class="panel-icon">📉</span> Simulation Results</h3>
+      <div class="result-cards">
+        <div class="result-card"><span class="result-label">Median Outcome</span><span class="result-value" id="mcMedian">—</span></div>
+        <div class="result-card accent"><span class="result-label">Best Case (95th)</span><span class="result-value" id="mcBest">—</span></div>
+        <div class="result-card warn"><span class="result-label">Worst Case (5th)</span><span class="result-value" id="mcWorst">—</span></div>
+        <div class="result-card"><span class="result-label">Prob. of Profit</span><span class="result-value" id="mcProb">—</span></div>
+      </div>
+      <canvas id="monteCarloChart"></canvas>
+    </div>
+  </div>
+  <div class="ai-advice-panel interactive-card" id="investAdvice">
+    <div class="advice-header"><span class="advice-icon">🤖</span><h3>AI Investment Advisor</h3><span class="advice-badge">SMART INSIGHTS</span></div>
+    <div class="advice-body"></div>
+  </div>
+</section>
+
+<!-- RISK DASHBOARD -->
+<section id="risk" class="section">
+  <div class="section-header">
+    <span class="section-tag">STATISTICAL ANALYSIS</span>
+    <h2>Risk Assessment <span class="gradient-text">Dashboard</span></h2>
+    <p>Analyze portfolio risk using standard deviation, Sharpe ratio, Value-at-Risk, and probability distributions.</p>
+  </div>
+  <div class="tool-container">
+    <div class="tool-panel interactive-card">
+      <h3><span class="panel-icon">⚠️</span> Portfolio Setup</h3>
+      <div class="input-group">
+        <label>Stocks Allocation (%)</label>
+        <input type="range" id="riskStocks" min="0" max="100" value="60">
+        <span class="range-value" id="riskStocksVal">60%</span>
+      </div>
+      <div class="input-group">
+        <label>Bonds Allocation (%)</label>
+        <input type="range" id="riskBonds" min="0" max="100" value="30">
+        <span class="range-value" id="riskBondsVal">30%</span>
+      </div>
+      <div class="input-group">
+        <label>Cash Allocation (%)</label>
+        <input type="range" id="riskCash" min="0" max="100" value="10">
+        <span class="range-value" id="riskCashVal">10%</span>
+      </div>
+      <div class="input-group">
+        <label>Portfolio Value (AED)</label>
+        <input type="number" id="riskPortfolio" value="100000" min="1000">
+      </div>
+      <button class="btn-primary" id="analyzeRisk">🔍 Analyze Risk</button>
+      <div class="math-proof">
+        <h4>Key Metrics:</h4>
+        <div class="math-formula-small">\[\text{VaR}_{95\%} = \mu - 1.645\sigma\]</div>
+        <div class="math-formula-small">\[\text{Sharpe} = \frac{R_p - R_f}{\sigma_p}\]</div>
+      </div>
+    </div>
+    <div class="tool-output interactive-card">
+      <h3><span class="panel-icon">📊</span> Risk Metrics</h3>
+      <div class="result-cards">
+        <div class="result-card"><span class="result-label">Expected Return</span><span class="result-value" id="riskReturn">—</span></div>
+        <div class="result-card"><span class="result-label">Portfolio σ</span><span class="result-value" id="riskSigma">—</span></div>
+        <div class="result-card warn"><span class="result-label">Value-at-Risk</span><span class="result-value" id="riskVaR">—</span></div>
+        <div class="result-card accent"><span class="result-label">Sharpe Ratio</span><span class="result-value" id="riskSharpe">—</span></div>
+      </div>
+      <canvas id="riskChart"></canvas>
+    </div>
+  </div>
+  <div class="ai-advice-panel interactive-card" id="riskAdvice">
+    <div class="advice-header"><span class="advice-icon">🤖</span><h3>AI Risk Advisor</h3><span class="advice-badge">SMART INSIGHTS</span></div>
+    <div class="advice-body"></div>
+  </div>
+</section>
+
+<!-- AI STOCK PREDICTOR -->
+<section id="stocks" class="section">
+  <div class="section-header">
+    <span class="section-tag">EXPONENTIAL SMOOTHING</span>
+    <h2>AI Stock <span class="gradient-text">Predictor</span></h2>
+    <p>Predict future stock price movements using Exponential Moving Averages (EMA) and simulate historical volatility models.</p>
+  </div>
+  <div class="tool-container">
+    <div class="tool-panel interactive-card">
+      <h3><span class="panel-icon">📈</span> Market Parameters</h3>
+      <div class="input-group">
+        <label>Stock Symbol</label>
+        <select id="stockSymbol">
+          <option value="AAPL" selected>AAPL (Apple)</option>
+          <option value="TSLA">TSLA (Tesla)</option>
+          <option value="NVDA">NVDA (NVIDIA)</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Historical Data (Days)</label>
+        <input type="range" id="stockHist" min="30" max="365" value="90">
+        <span class="range-value" id="stockHistVal">90 days</span>
+      </div>
+      <div class="input-group">
+        <label>Prediction Horizon (Days)</label>
+        <input type="range" id="stockPred" min="7" max="60" value="30">
+        <span class="range-value" id="stockPredVal">30 days</span>
+      </div>
+      <div class="input-group">
+        <label>EMA Smoothing Factor (α)</label>
+        <input type="range" id="stockAlpha" min="0.05" max="0.5" value="0.2" step="0.05">
+        <span class="range-value" id="stockAlphaVal">0.2</span>
+      </div>
+      <button class="btn-primary" id="predictStock">⚡ Generate Prediction</button>
+      <div class="math-proof">
+        <h4>EMA Formula:</h4>
+        <div class="math-formula-small">\[EMA_t = \alpha \cdot P_t + (1 - \alpha) \cdot EMA_{t-1}\]</div>
+        <p class="math-explanation">Exponential Moving Average assigns exponentially decreasing weights over time, making it highly responsive to recent price changes.</p>
+      </div>
+    </div>
+    <div class="tool-output interactive-card">
+      <h3><span class="panel-icon">📉</span> Price Forecast</h3>
+      <div class="result-cards">
+        <div class="result-card"><span class="result-label">Current Price</span><span class="result-value" id="stockCurrent">—</span></div>
+        <div class="result-card"><span class="result-label">Predicted Price</span><span class="result-value" id="stockPredicted">—</span></div>
+        <div class="result-card"><span class="result-label">Trend Indication</span><span class="result-value" id="stockTrend">—</span></div>
+      </div>
+      <canvas id="stockChart"></canvas>
+    </div>
+  </div>
+  <div class="ai-advice-panel interactive-card" id="stockAdvice">
+    <div class="advice-header"><span class="advice-icon">🤖</span><h3>AI Trading Advisor</h3><span class="advice-badge">QUANTITATIVE INSIGHTS</span></div>
+    <div class="advice-body"></div>
+  </div>
+</section>
+
+<!-- LOAN CALCULATOR -->
+<section id="loan" class="section">
+  <div class="section-header">
+    <span class="section-tag">AMORTIZATION</span>
+    <h2>Loan & EMI <span class="gradient-text">Calculator</span></h2>
+    <p>Calculate monthly installments using the annuity amortization formula and visualize the complete repayment schedule.</p>
+  </div>
+  <div class="tool-container">
+    <div class="tool-panel interactive-card">
+      <h3><span class="panel-icon">🏦</span> Loan Details</h3>
+      <div class="input-group">
+        <label>Loan Amount (AED)</label>
+        <input type="number" id="loanAmount" value="500000" min="1000">
+      </div>
+      <div class="input-group">
+        <label>Annual Interest Rate (%)</label>
+        <input type="range" id="loanRate" min="1" max="20" value="5" step="0.25">
+        <span class="range-value" id="loanRateVal">5%</span>
+      </div>
+      <div class="input-group">
+        <label>Loan Term (Years)</label>
+        <input type="range" id="loanTerm" min="1" max="30" value="15">
+        <span class="range-value" id="loanTermVal">15 yrs</span>
+      </div>
+      <button class="btn-primary" id="calcLoan">🧮 Calculate EMI</button>
+      <div class="math-proof">
+        <h4>Amortization Formula:</h4>
+        <div class="math-formula-small">\[EMI = P \cdot \frac{r(1+r)^n}{(1+r)^n - 1}\]</div>
+        <p class="math-explanation">Where P = principal, r = monthly rate, n = total months. Derived from present value of annuity.</p>
+      </div>
+    </div>
+    <div class="tool-output interactive-card">
+      <h3><span class="panel-icon">💳</span> Repayment Analysis</h3>
+      <div class="result-cards">
+        <div class="result-card"><span class="result-label">Monthly EMI</span><span class="result-value" id="loanEMI">—</span></div>
+        <div class="result-card"><span class="result-label">Total Payment</span><span class="result-value" id="loanTotal">—</span></div>
+        <div class="result-card warn"><span class="result-label">Total Interest</span><span class="result-value" id="loanInterest">—</span></div>
+        <div class="result-card accent"><span class="result-label">Interest Ratio</span><span class="result-value" id="loanRatio">—</span></div>
+      </div>
+      <canvas id="loanChart"></canvas>
+    </div>
+  </div>
+  <div class="ai-advice-panel interactive-card" id="loanAdvice">
+    <div class="advice-header"><span class="advice-icon">🤖</span><h3>AI Loan Advisor</h3><span class="advice-badge">SMART INSIGHTS</span></div>
+    <div class="advice-body"></div>
+  </div>
+</section>
+
+<!-- CREATORS TRIBUTE -->
+<section id="creators" class="section">
+  <div class="section-header">
+    <span class="section-tag">INNOVATORS</span>
+    <h2>The Minds Behind <span class="gradient-text">NexFin</span></h2>
+    <p>A visionary team from JSS International School building the future of mathematical finance for Dubai 2033.</p>
+  </div>
+  <div class="creators-grid">
+    <div class="creator-card interactive-card">
+      <div class="creator-icon">👨‍💻</div>
+      <h3>Shubhan</h3>
+      <p class="creator-role">Lead Developer</p>
+    </div>
+    <div class="creator-card interactive-card">
+      <div class="creator-icon">📐</div>
+      <h3>Manas</h3>
+      <p class="creator-role">Math Modeler</p>
+    </div>
+    <div class="creator-card interactive-card">
+      <div class="creator-icon">💡</div>
+      <h3>Tanav</h3>
+      <p class="creator-role">Innovation Lead</p>
+    </div>
+    <div class="creator-card interactive-card">
+      <div class="creator-icon">🎨</div>
+      <h3>Kaairav</h3>
+      <p class="creator-role">UI/UX Designer</p>
+    </div>
+    <div class="creator-card interactive-card">
+      <div class="creator-icon">📊</div>
+      <h3>Ayaan</h3>
+      <p class="creator-role">Data Analyst</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="footer-content">
+    <div class="footer-brand">
+      <span class="logo-symbol">Σ</span>
+      <span class="logo-text">NexFin<span class="logo-year">2033</span></span>
+      <p>AI-Powered Mathematical Finance for Dubai's Future</p>
+    </div>
+    <div class="footer-info">
+      <p>City of Math 2033 · FinTech Future Track</p>
+      <p>Built with 12 Mathematical Models · 6 AI-Powered Tools</p>
+      <p>JSS International School · Phase 4</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2033 NexFin — Mathematics is not just about solving problems. It is about creating solutions.</p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
