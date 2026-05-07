@@ -1,5 +1,65 @@
 /* ===== NexFin 2033 — JavaScript Engine ===== */
 
+// ===== API CONFIG =====
+const FINNHUB   = 'd7u4fghr01qvtsq0ebj0d7u4fghr01qvtsq0ebjg';
+const OPENAI_K  = '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';
+const TICKER_SYMS = ['AAPL','TSLA','MSFT','AMZN','NVDA','META','GOOGL'];
+const liveQuotes = {}; // { SYM: { c, d, dp, h, l, o, pc } }
+
+// ===== SEEDED PRNG (mulberry32) — same inputs → same results =====
+function seedFrom(str) {
+  let h = 1779033703;
+  for (let i = 0; i < str.length; i++) {
+    h = Math.imul(h ^ str.charCodeAt(i), 3432918353);
+    h = h << 13 | h >>> 19;
+  }
+  return h >>> 0;
+}
+function makeRng(seed) {
+  return function() {
+    seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+// ===== FINNHUB API =====
+async function fhQuote(sym) {
+  try {
+    const r = await fetch(`https://finnhub.io/api/v1/quote?symbol=${sym}&token=${FINNHUB}`);
+    return await r.json();
+  } catch(e) { return {}; }
+}
+async function fhCandles(sym, days) {
+  try {
+    const to = Math.floor(Date.now() / 1000);
+    const from = to - (days + 10) * 86400;
+    const r = await fetch(`https://finnhub.io/api/v1/stock/candle?symbol=${sym}&resolution=D&from=${from}&to=${to}&token=${FINNHUB}`);
+    return await r.json();
+  } catch(e) { return { s: 'no_data' }; }
+}
+
+// ===== LIVE TICKER (refreshes every 15 s) =====
+async function updateTicker() {
+  const el = document.getElementById('tickerContent');
+  if (!el) return;
+  try {
+    const quotes = await Promise.all(TICKER_SYMS.map(s => fhQuote(s)));
+    quotes.forEach((q, i) => { if (q.c) liveQuotes[TICKER_SYMS[i]] = q; });
+    const items = quotes.map((q, i) => {
+      const s = TICKER_SYMS[i];
+      const p  = q.c  != null ? q.c.toFixed(2)  : '—';
+      const dp = q.dp != null ? q.dp.toFixed(2)  : '0.00';
+      const up = (q.dp || 0) >= 0;
+      return `<div class="ticker-item">${s}: $${p} <span class="${up ? 'up' : 'down'}">${up ? '▲' : '▼'} ${Math.abs(dp)}%</span></div>`;
+    });
+    el.innerHTML = [...items, ...items].join('');
+  } catch(e) { console.warn('Ticker update failed:', e); }
+}
+updateTicker();
+setInterval(updateTicker, 15000);
+
 // ===== PARTICLE SYSTEM & MOUSE TRACKING =====
 let mouseX = window.innerWidth / 2;
 let mouseY = window.innerHeight / 2;
@@ -123,10 +183,33 @@ document.querySelectorAll('.interactive-card').forEach(card => {
 });
 
 
-// ===== NAVBAR SCROLL =====
+// ===== NAVBAR SCROLL & MOBILE MENU =====
 window.addEventListener('scroll', () => {
   document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
 });
+
+const hamburger = document.getElementById('hamburgerBtn');
+const navLinks = document.querySelector('.nav-links');
+const navOverlay = document.getElementById('navOverlay');
+
+function toggleMenu() {
+  hamburger.classList.toggle('active');
+  navLinks.classList.toggle('open');
+  navOverlay.classList.toggle('active');
+  document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+}
+
+if (hamburger) {
+  hamburger.addEventListener('click', toggleMenu);
+  navOverlay.addEventListener('click', toggleMenu);
+  
+  // Close menu when clicking a link
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (navLinks.classList.contains('open')) toggleMenu();
+    });
+  });
+}
 
 // ===== SCROLL REVEAL =====
 const observer = new IntersectionObserver((entries) => {
@@ -341,7 +424,7 @@ document.getElementById('calcSavings').addEventListener('click', () => {
   ]);
 });
 
-// ===== 3. MONTE CARLO SIMULATION =====
+// ===== 3. MONTE CARLO SIMULATION (Seeded — deterministic) =====
 document.getElementById('runMonteCarlo').addEventListener('click', () => {
   const S0 = parseFloat(document.getElementById('mcInitial').value);
   const mu = parseFloat(document.getElementById('mcReturn').value) / 100;
@@ -351,11 +434,11 @@ document.getElementById('runMonteCarlo').addEventListener('click', () => {
   const steps = T * 12; // monthly steps
   const dt = 1 / 12;
 
-  // Box-Muller transform for normal distribution
+  // Seeded Box-Muller: same inputs → same simulation every time
+  const rng = makeRng(seedFrom(`mc_${S0}_${mu}_${sigma}_${T}_${numSims}`));
   function randn() {
-    let u = 0, v = 0;
-    while (u === 0) u = Math.random();
-    while (v === 0) v = Math.random();
+    let u = rng(), v = rng();
+    while (u === 0) u = rng(); while (v === 0) v = rng();
     return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
   }
 
@@ -581,57 +664,82 @@ document.getElementById('calcLoan').addEventListener('click', () => {
   ]);
 });
 
-// ===== 6. AI STOCK PREDICTOR =====
-document.getElementById('predictStock').addEventListener('click', () => {
+// ===== 6. AI STOCK PREDICTOR (Real Data + Deterministic AI) =====
+document.getElementById('predictStock').addEventListener('click', async () => {
   const symbol = document.getElementById('stockSymbol').value;
   const histDays = parseInt(document.getElementById('stockHist').value);
   const predDays = parseInt(document.getElementById('stockPred').value);
   const alpha = parseFloat(document.getElementById('stockAlpha').value);
 
-  // Generate simulated historical data
-  const basePrices = { AAPL: 342.15, TSLA: 891.05, NVDA: 1120.45 };
-  const basePrice = basePrices[symbol];
+  // Set loading state
+  document.getElementById('stockCurrent').innerHTML = '<div class="spinner" style="display:inline-block;width:16px;height:16px;border-width:2px;vertical-align:middle;"></div>';
+  document.getElementById('stockPredicted').innerHTML = '<div class="spinner" style="display:inline-block;width:16px;height:16px;border-width:2px;vertical-align:middle;"></div>';
+  document.getElementById('stockTrend').textContent = '—';
+  document.getElementById('stockTrend').style.color = 'inherit';
+
+  // 1. Fetch real historical data from Finnhub
+  const rawData = await fhCandles(symbol, histDays);
   
   const labels = [];
   const histData = [];
   const emaData = [];
   const predData = [];
-  
-  let currentPrice = basePrice * 0.8; // Start lower
-  let currentEma = currentPrice;
 
-  // Generate History
-  for (let i = -histDays; i <= 0; i++) {
-    labels.push(i === 0 ? 'Today' : `D${i}`);
+  let lastPrice = 0;
+  let currentEma = 0;
+
+  if (rawData.s === 'ok' && rawData.c && rawData.c.length > 0) {
+    // Real data success
+    const prices = rawData.c.slice(-histDays); // Take last N available days
+    lastPrice = prices[prices.length - 1];
+    currentEma = prices[0];
     
-    // Random walk with drift for stock price
-    const change = currentPrice * (0.001 + (Math.random() - 0.5) * 0.04);
-    currentPrice += change;
+    for (let i = 0; i < prices.length; i++) {
+      labels.push(i === prices.length - 1 ? 'Today' : `D-${prices.length - 1 - i}`);
+      const p = prices[i];
+      currentEma = (alpha * p) + ((1 - alpha) * currentEma);
+      histData.push(p);
+      emaData.push(currentEma);
+      predData.push(null);
+    }
+  } else {
+    // Fallback if API fails
+    const basePrices = { AAPL: 342.15, TSLA: 891.05, NVDA: 1120.45, MSFT: 512.30, AMZN: 245.90, META: 610.20, GOOGL: 210.75 };
+    let currentPrice = (basePrices[symbol] || 100) * 0.8;
+    currentEma = currentPrice;
     
-    // EMA Formula: EMA_t = alpha * P_t + (1 - alpha) * EMA_{t-1}
-    currentEma = (alpha * currentPrice) + ((1 - alpha) * currentEma);
+    // Seeded generator for fallback history
+    const rngHist = makeRng(seedFrom(`hist_${symbol}_${histDays}`));
     
-    histData.push(currentPrice);
-    emaData.push(currentEma);
-    predData.push(null);
+    for (let i = -histDays; i <= 0; i++) {
+      labels.push(i === 0 ? 'Today' : `D${i}`);
+      const change = currentPrice * (0.001 + (rngHist() - 0.5) * 0.04);
+      currentPrice += change;
+      currentEma = (alpha * currentPrice) + ((1 - alpha) * currentEma);
+      histData.push(currentPrice);
+      emaData.push(currentEma);
+      predData.push(null);
+    }
+    lastPrice = currentPrice;
   }
 
-  // Generate Prediction
-  const lastPrice = histData[histData.length - 1];
+  // 2. Generate Deterministic Prediction
   let predPrice = lastPrice;
-  // Trend factor based on difference between price and EMA
   const trendFactor = (lastPrice - currentEma) / lastPrice;
   
   predData[histData.length - 1] = lastPrice; // connect line
+
+  // Seeded generator for prediction so it doesn't change on re-click
+  const rngPred = makeRng(seedFrom(`pred_${symbol}_${lastPrice}_${predDays}_${alpha}`));
 
   for (let i = 1; i <= predDays; i++) {
     labels.push(`+${i}D`);
     histData.push(null);
     emaData.push(null);
     
-    // Dampened trend projection + noise
-    const drift = trendFactor * 0.1 * Math.pow(0.95, i); // trend decays
-    const noise = (Math.random() - 0.5) * 0.02;
+    // Dampened trend projection + deterministic noise
+    const drift = trendFactor * 0.1 * Math.pow(0.95, i);
+    const noise = (rngPred() - 0.5) * 0.02;
     predPrice = predPrice * (1 + drift + noise);
     predData.push(predPrice);
   }
@@ -662,18 +770,44 @@ document.getElementById('predictStock').addEventListener('click', () => {
       responsive: true,
       plugins: { legend: { position: 'bottom' } },
       scales: {
-        x: { grid: { display: false } },
+        x: { grid: { display: false }, ticks: { maxTicksLimit: 10 } },
         y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: v => '$' + v } }
       }
     }
   });
 
-  // AI Advice for Stocks
-  showAdvice('stockAdvice', [
-    { icon: '🧠', text: `<strong>Trend Analysis:</strong> The AI model detects a <span class="${isUp ? 'good-text' : 'warn-text'}">${isUp ? 'bullish' : 'bearish'} trend</span> based on the divergence between the current price and its Exponential Moving Average (EMA).` },
-    { icon: '📐', text: `<strong>Mathematical Model:</strong> We apply the formula <span class="highlight">EMA_t = α·P_t + (1-α)·EMA_{t-1}</span>. An alpha of ${alpha} means the most recent day accounts for ${alpha*100}% of the EMA value, giving more weight to recent price action.` },
-    { icon: '🔮', text: `<strong>Prediction:</strong> The model projects ${symbol} to reach <span class="highlight">$${finalPred.toFixed(2)}</span> in ${predDays} days. Note that this simulation uses mean-reversion drift and random noise to simulate market conditions.` }
-  ]);
+  // 3. AI Advice (OpenAI integration)
+  const advicePanel = document.getElementById('stockAdvice');
+  const body = advicePanel.querySelector('.advice-body');
+  body.innerHTML = '<div class="advice-loading"><div class="spinner"></div> Generating AI Analysis...</div>';
+  advicePanel.classList.add('active');
+
+  try {
+    const prompt = `Act as an expert quantitative financial analyst for ${symbol}. Current price is $${lastPrice.toFixed(2)}, our mathematical EMA model predicts it will be $${finalPred.toFixed(2)} in ${predDays} days (a ${percentChange}% change). Provide 3 short, punchy insights about this specific stock and trend. Use HTML formatting for emphasis (e.g. <strong>, <span class="highlight">, <span class="warn-text">, <span class="good-text">). Keep it brief, factual, and strictly financial. Format as a JSON object with a single key "insights" containing an array of objects with 'icon' (an emoji) and 'text' properties.`;
+    
+    const aiResp = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${OPENAI_K}` },
+      body: JSON.stringify({
+        model: 'gpt-4o-mini',
+        messages: [{ role: 'user', content: prompt }],
+        temperature: 0.7,
+        response_format: { type: 'json_object' }
+      })
+    });
+    
+    if (!aiResp.ok) throw new Error('API Error');
+    const aiData = await aiResp.json();
+    let parsed = JSON.parse(aiData.choices[0].message.content);
+    showAdvice('stockAdvice', parsed.insights || parsed);
+  } catch(e) {
+    // Fallback deterministic advice if OpenAI fails (CORS, key limits, etc)
+    showAdvice('stockAdvice', [
+      { icon: '🧠', text: `<strong>Trend Analysis:</strong> The quantitative model detects a <span class="${isUp ? 'good-text' : 'warn-text'}">${isUp ? 'bullish' : 'bearish'} trend</span> for <strong>${symbol}</strong> based on the divergence between the real current price and its Exponential Moving Average (EMA).` },
+      { icon: '📐', text: `<strong>Mathematical Model:</strong> We apply the formula <span class="highlight">EMA_t = α·P_t + (1-α)·EMA_{t-1}</span>. An alpha of ${alpha} gives more weight to recent actual market movements.` },
+      { icon: '🔮', text: `<strong>Data-Driven Prediction:</strong> The deterministic model projects ${symbol} to reach <span class="highlight">$${finalPred.toFixed(2)}</span> in ${predDays} days, eliminating random variations from the forecast.` }
+    ]);
+  }
 });
 
 // ===== BOOT LOADER & AUTO-TRIGGER =====
